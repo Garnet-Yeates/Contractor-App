@@ -1,10 +1,23 @@
 import React, { Component, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import "./StyleSheet.scss";
+import '../../Styles.scss'
+import { loginUser, registerUser } from '../Actions/userAuthActions';
+import './StyleSheet.scss'
+
+import { Link } from 'react-router-dom';
+
 function RegistrationPage(props) {
 
-    const [loginObject, setLoginObject] = useState({});
+    const [fullName, setFullName] = useState("");
+    const [username, setUsername] = useState("");
+
+    const [email, setEmail] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
     const [errors, setErrors] = useState({});
 
     // From store
@@ -17,62 +30,96 @@ function RegistrationPage(props) {
         }
     }, [])
 
-    const onChange = (event) => setLoginObject({
-        ...loginObject,
-        [event.target.id]: event.target.value
-    })
-
     const onSubmit = (event) => {
         // Prevent Default Page Refesh
         event.preventDefault()
-
-        const userData = {
-            username: this.state.username,
-            password: this.state.password
-        }
-
-        let { username, password } = userData;
-
-        console.log(`About to login user with username:${username} password:${password}`)
-
-        this.props.loginUser(userData, this.props.history);
+        registerUser({
+            fullName,
+            username,
+            email,
+            password,
+            confirmPassword,
+        }, props.history, setErrors)
     }
 
-    const { username, password } = loginObject;
-
     return (
-        <div>
+        <div className='registration-page'>
             <div className='full-screen-container'>
-                <div className='form-container'>
-                    <h3>Welcome</h3>
-                    <form onSubmit={this.onSubmit}>
-                        <div className='input-group'>
-                            <input type='text'
-                                placeholder='Username'
-                                id='username'
-                                className='text-input'
-                                onChange={onChange}
-                                value={username}
-                            />
-                            <div className='err-tooltip'>{errors.username}</div>
-                        </div>
-                        <div className='input-group'>
-                            <input type='password'
-                                placeholder='Password'
-                                id='password'
-                                className='text-input'
-                                onChange={onChange}
-                                value={password}
-                            />
-                            <div className='err-tooltip'>{errors.password}</div>
-                        </div>
-                        <input type="submit" className='btn btn-red' value='Log In' />
-                    </form>
+                <div className="slate-box">
+                    <h3>Create Account</h3>
+                    <hr />
+                    <div className='hbox spaced'>
+                        <ProfileField
+                            label={"Full Name"}
+                            value={fullName}
+                            setValue={setFullName}
+                            error={errors.fullName}
+                        />
+                        <ProfileField
+                            label={"Username"}
+                            value={username}
+                            setValue={setUsername}
+                            error={errors.userName}
+                        />
+                    </div>
+                    <hr />
+                    <div className='hbox spaced'>
+                        <ProfileField
+                            label={"Email Address"}
+                            value={email}
+                            setValue={setEmail}
+                            error={errors.fullName}
+                        />
+                        <ProfileField
+                            label={"Phone Number"}
+                            altLabel="Optional"
+                            value={phoneNumber}
+                            setValue={setPhoneNumber}
+                            error={errors.phoneNumber}
+                        />
+                    </div>
+                    <hr />
+                    <div className='hbox spaced'>
+                        <ProfileField
+                            label={"Password"}
+                            value={password}
+                            setValue={setPassword}
+                            error={errors.password}
+                            type="password"
+                        />
+                        <ProfileField
+                            label={"Confirm Password"}
+                            value={confirmPassword}
+                            setValue={setConfirmPassword}
+                            error={errors.confirmPassword}
+                            type="password"
+                        />
+                    </div>
+                    <hr />
+                    <div className="hbox space-between align-end">
+                        <Link to='/login'>Already Have an Account?</Link>
+                        <button className="btn" onClick={onSubmit}>Register</button>
+                    </div>
                 </div>
             </div>
         </div>
-    );
+    )
+}
 
+function ProfileField(props) {
+
+    const { label, altLabel, value, setValue, error, ...other } = props;
+
+    return (
+        <div className="vbox">
+            <div className="double-label-container">
+                <label>{label}</label>
+                <label className="extra-info-label">{altLabel}</label>
+            </div>
+            <input {...other} className="slate-input" value={value} onChange={(event) => setValue(event.target.value)} />
+            <div className="error-text">{error}</div>
+        </div>
+    )
 }
 
 const mapStateToProps = storeState => ({

@@ -1,3 +1,10 @@
+const mongoose = require('mongoose'),
+    jwt = require('jsonwebtoken'),
+    bcrypt = require('bcrypt'),
+    isEmpty = require('is-empty'),
+    User = mongoose.model('User');
+
+
 /**
  * Checks to see if the supplied username is taken. If so, this function
  * will automatically send a 409 conflict back to the user as a json object

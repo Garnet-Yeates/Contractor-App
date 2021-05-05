@@ -1,0 +1,190 @@
+@font-face {
+    font-family: 'Slate Bold';
+    src: url(./fonts/slate-std-bold.otf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Slate';
+    src: url(./fonts/SlateRg.TTF) format('truetype');
+}
+
+@font-face {
+    font-family: 'Slate Medium';
+    src: url(./fonts/slate-std-medium.otf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Slate Black';
+    src: url(./fonts/slate-std-black.otf) format('truetype');
+}
+
+* {
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+
+.hbox {
+    display: flex;
+    flex-direction: row;
+
+    &.spaced {
+        --input-space: 0.75rem;
+        justify-content: space-between;
+        margin: 0 calc(var(--input-space)*-1);
+    }
+}
+
+.vbox {
+    display: flex;
+    flex-direction: column;
+
+    &.spaced {
+        --input-space: 0.75rem;
+        justify-content: space-between;
+        margin: calc(var(--input-space)*-1) 0;
+    }
+}   
+
+.hbox, .vbox {
+
+    &.align-center {
+        align-items: center;
+    }
+    
+    &.center-content {
+        justify-content: center;
+    }
+
+    &.flex-end {
+        justify-content: flex-end;
+    }
+
+    &.flex-start {
+        justify-content: flex-start;
+    }
+
+    &.align-start {
+        align-items: flex-start;
+    }
+
+    &.align-end {
+        align-items: flex-end;
+    }
+
+    &.space-between {
+        justify-content: space-between;
+    }
+
+    .spaced > & {
+        flex-grow: 1;
+    }
+
+    .spaced.hbox > & {
+        width: 0; // Let flex-grow determine so it's equal
+        margin: 0 var(--input-space);
+    }
+
+    .spaced.vbox > & {
+        height: 0; // Let flex-grow determine so it's equal
+        margin: var(--input-space) 0;
+    }
+}
+
+hr {
+    border: 0;
+    border-top: 0.1rem solid rgb(230, 230, 230);
+    margin: 0.75rem 0;
+}
+
+.slate-box {
+    --box-padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    font-family: "Slate";
+    color: rgb(39, 39, 53);  
+    background-color: white;
+    padding: var(--box-padding);
+    min-width: 450px;
+    max-width: 650px;
+    width: 50%;
+    max-height: 80%;
+    border-radius: 1rem;
+    box-shadow: 0 0 1.5rem -1rem;
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Slate Black';
+        margin: 0;
+    }
+
+    h1 { font-size: 3rem }
+    h2 { font-size: 2.75rem }
+    h3 { font-size: 2.5rem }
+    h4 { font-size: 2.25rem }
+    h5 { font-size: 2rem }
+    h6 { font-size: 1.75rem }
+
+    .hbox, .vbox {
+        color: rgb(57, 57, 63);
+    }
+
+    .double-label-container {
+        font-family: "Slate Bold";
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.25rem;
+
+        label {
+            font-family: 'Slate Bold';
+            margin: 0;
+        }
+        .extra-info-label {
+            font-family: "Slate";
+            color: rgb(160, 160, 160);
+        }
+    }
+
+    input {                       
+        border: none;
+        box-shadow: 0 0 0.1rem inset rgb(144, 144, 144);
+        border-radius: 0.2rem;
+        padding: 0.4rem 0.5rem;
+        font-size: 1rem;
+        width: 100%;
+
+        &:focus, &:hover {
+            transition-duration: 100ms;
+            border: none;
+            outline: none;
+            box-shadow: 0 0 0.05rem 0.1rem inset black;
+        }
+    }
+
+    .error-text {
+        color: rgb(136, 9, 98);
+        margin-top: 0.25rem;
+        min-height: 1rem;
+    }
+
+    .btn {
+        box-sizing: border-box;
+        font-family: "Slate Medium";
+        margin-top: 0.5rem;
+        font-size: 1.1rem;
+        color: white;
+        border: none;
+        background-color: rgb(10, 207, 141);
+        padding: 0.4rem 0.8rem;
+        border-radius: 0.25rem;
+        transition: background-color 100ms ease-in-out;
+
+        &:enabled {
+            &:hover {
+                background-color: rgb(8, 133, 91);
+            }
+        }
+
+        &:disabled {
+            background-color: rgb(82, 82, 82);
+        }
+    }
+}
