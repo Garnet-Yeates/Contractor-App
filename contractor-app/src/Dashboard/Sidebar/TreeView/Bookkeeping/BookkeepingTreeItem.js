@@ -7,9 +7,9 @@ import BookkeepingGroup from './BookkeepingGroup'
 
 import { setPageContent } from '../TreeViewController'
 import StyledTreeItem from '../StyledTreeItem';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CreateTemplatePage from '../../../Pages/Bookkeeping/CreateTemplatePage';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 
 function usePrevious(value) {
     const ref = useRef();
@@ -40,14 +40,14 @@ function BookkeepingTreeItem(props) {
         <StyledTreeItem
             nodeId={getNodeId()}
             labelText="Bookkeeping"
-            labelIcon={MenuBookIcon}
+            labelIcon={LibraryBooksIcon}
             color="#a250f5"
             bgColor="#f3e8fd"
         >
             <StyledTreeItem
                 nodeId={getNodeId()}
                 labelText="Create New Template"
-                labelIcon={AddCircleIcon}
+                labelIcon={NoteAddIcon}
                 color="#3c8039"
                 bgColor="#e6f4ea"
                 onClick={() => setPageContent(<CreateTemplatePage />)}

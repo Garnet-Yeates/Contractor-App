@@ -10,9 +10,9 @@ import StyledTreeItem from '../StyledTreeItem';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import EditIcon from '@material-ui/icons/Edit';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import ViewEntriesPage from '../../../Pages/Bookkeeping/ViewEntriesPage';
 import AddEntryPage from '../../../Pages/Bookkeeping/AddEntryPage';
+import DescriptionIcon from '@material-ui/icons/Description';
 
 function BookkeepingGroup(props) {
 
@@ -27,7 +27,7 @@ function BookkeepingGroup(props) {
         <StyledTreeItem
             nodeId={getNodeId()}
             labelText={name}
-            labelIcon={LibraryBooksIcon}
+            labelIcon={DescriptionIcon}
             color="#a250f5"
             bgColor="#f3e8fd"
         >

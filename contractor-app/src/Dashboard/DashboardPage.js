@@ -18,9 +18,6 @@ function DashboardPage(props) {
                     <CurrentPage.type {...CurrentPage.props} />
                 </div>
             </div>
-
-
-
         </div>
     )
 }

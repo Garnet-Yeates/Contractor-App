@@ -1,0 +1,108 @@
+:root {
+    --black: #000000;
+    --white: #FFFFFF;
+    --red: #ce4f6f;
+    --dark-red: #b10b35;
+    --light-red: #f7a0b5;
+    font-family: Verdana, Arial, sans-serif;
+}
+
+html, body, nav, ul {
+    margin: 0;
+    max-height: 0;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.full-screen-container {
+    background-image: url(https://wallpaperaccess.com/full/4305780.jpg);
+    vertical-align: top;
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container h3 {
+    overflow: hidden;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: normal;
+}
+
+.form-container {
+    background-color: white;
+    border-radius: 8px;
+    max-width: 425px;
+    min-width: 325px;
+    width: 40%;
+    padding: 40px 20px;
+}
+
+.err-tooltip {
+    padding-left: 3px; 
+    color: var(--red);
+    font-size: 0.75rem;
+}
+
+/* Usually consists of a block input and a span */ 
+.input-group {
+    margin-bottom: 1rem; 
+}
+
+.input-group input {
+    box-sizing: border-box;
+    outline: none;
+    font-size: 1rem;
+    margin-bottom: 0.1rem;
+    width: 100%;
+    min-width: 0px;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.input-group input:focus {
+    border: 2px solid rgb(0, 0, 0);
+    transition: 0.1s linear;
+}
+
+.btn {
+    width: 100%;
+    padding: .375rem .75rem;
+    margin-bottom: 0.25rem;
+    border-radius: .25rem;
+    position: relative;
+}  
+
+
+.btn.btn-red {
+    outline: none;
+    color: var(--white);
+    background-color: var(--red);
+    border: var(--red) 1px solid
+}
+
+.btn.btn-red:focus {
+    transition-duration: 0.35s;
+    box-shadow: 0 0 0 3px var(--light-red);
+}
+
+.btn.btn-red:hover {
+    transition-duration: 0.35s;
+    background-color: var(--dark-red);
+    border: var(--dark-red) 1px solid;
+}

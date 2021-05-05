@@ -11,16 +11,19 @@ ul {
 
 .create-template-page {
     width: 100%;
+    height: 100%;
+    padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-y: auto;
 
     .create-template-form-container {
+        margin-top: auto;
+        margin-bottom: auto;
         user-select: none;
-
         box-shadow: 0.1rem 0.1rem 0.5rem gray;
         border-radius: 0.5rem;
-
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -73,7 +76,6 @@ ul {
             button.margin-left {
                 margin-left: 0.1rem;
             }
-
         }
 
         .btn-green {

@@ -1,6 +1,9 @@
 // For controlling tree view items
-export const SET_EXPANDED_ITEMS = 'SET_EXPANDED_ITEMS';
 export const SET_CONTENT = 'SET_CONTENT' // Changes which page (from the treeview) is displayed
+
+// Auth
+export const LOGIN_USER = 'LOGIN_USER'
+export const LOGOUT_USER = 'LOGOUT_USER'
 
 // Templates
 export const ADD_TEMPLATE = 'ADD_TEMPLATE';

@@ -9,8 +9,16 @@ app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({ extended: false}))
 
+// Set up our custom middleware
+const attachUser = require('./api/middleware/attachUser')
+app.use(attachUser);
+
+// Load mongoose models
+require('./api/models/UserSchema')
+
 // Configure Routes
-require('./routes/databaseRoute')(app)
+require('./api/routes/databaseRoute')(app)
+require('./api/routes/authRoute')(app)
 
 // Connect database
 const mongoose = require('mongoose')
@@ -20,4 +28,6 @@ const port = process.env.PORT || 4000;
 mongoose.connect(process.env.DATABASE_ACCESS, () => console.log('[SERVER] MongoDB successfully connected'))
 
 // Start
-app.listen(4000, () => console.log("Server is up and running"));
+app.listen(4000, () => {
+    console.log("Server is up and running")
+});
