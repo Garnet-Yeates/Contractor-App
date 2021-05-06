@@ -46,7 +46,7 @@ function RegistrationPage(props) {
         <div className='registration-page'>
             <div className='full-screen-container'>
                 <div className="slate-box">
-                    <h3>Create Account</h3>
+                    <h2>Create Account</h2>
                     <hr />
                     <div className='hbox spaced'>
                         <ProfileField
@@ -59,7 +59,7 @@ function RegistrationPage(props) {
                             label={"Username"}
                             value={username}
                             setValue={setUsername}
-                            error={errors.userName}
+                            error={errors.username}
                         />
                     </div>
                     <hr />
@@ -68,7 +68,7 @@ function RegistrationPage(props) {
                             label={"Email Address"}
                             value={email}
                             setValue={setEmail}
-                            error={errors.fullName}
+                            error={errors.email}
                         />
                         <ProfileField
                             label={"Phone Number"}
@@ -79,22 +79,30 @@ function RegistrationPage(props) {
                         />
                     </div>
                     <hr />
-                    <div className='hbox spaced'>
-                        <ProfileField
-                            label={"Password"}
-                            value={password}
-                            setValue={setPassword}
-                            error={errors.password}
-                            type="password"
-                        />
-                        <ProfileField
-                            label={"Confirm Password"}
-                            value={confirmPassword}
-                            setValue={setConfirmPassword}
-                            error={errors.confirmPassword}
-                            type="password"
-                        />
+                    <div className='vbox'>
+                        <div className='hbox spaced'>
+                            <ProfileField
+                                label={"Password"}
+                                value={password}
+                                setValue={setPassword}
+                                noError
+                                type="password"
+                            />
+                            <ProfileField
+                                label={"Confirm Password"}
+                                value={confirmPassword}
+                                setValue={setConfirmPassword}
+                                noError
+                                type="password"
+                            />
+                        </div>
+                        <div className='hbox spaced'>
+                            <div className='hbox'>
+                                <div className="error-text">{errors.password}</div>
+                            </div>
+                        </div>
                     </div>
+
                     <hr />
                     <div className="hbox space-between align-end">
                         <Link to='/login'>Already Have an Account?</Link>
@@ -108,7 +116,7 @@ function RegistrationPage(props) {
 
 function ProfileField(props) {
 
-    const { label, altLabel, value, setValue, error, ...other } = props;
+    const { label, altLabel, value, setValue, error, noError, ...other } = props;
 
     return (
         <div className="vbox">
@@ -117,7 +125,10 @@ function ProfileField(props) {
                 <label className="extra-info-label">{altLabel}</label>
             </div>
             <input {...other} className="slate-input" value={value} onChange={(event) => setValue(event.target.value)} />
-            <div className="error-text">{error}</div>
+            {
+                !noError &&
+                <div className="error-text">{error}</div>
+            }
         </div>
     )
 }
