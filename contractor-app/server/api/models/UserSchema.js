@@ -1,28 +1,28 @@
 // Sign up schema - what to collect from user
 const mongoose = require('mongoose'),
     bcrypt = require('bcrypt');
-    Schema = mongoose.Schema;
+Schema = mongoose.Schema;
 
 //Defines mongoose schema for user accounts
 const UserSchema = new Schema({
-    fullName:{
+    fullName: {
         type: String,
         required: true,
         trim: true,
     },
-    identifier:{ // same as username, but always lowercase 
+    identifier: { // same as username, but always lowercase 
         type: String,
         required: true,
         unique: true,
         lowercase: true,
         trim: true,
     },
-    username:{
+    username: {
         type: String,
         trim: true,
         required: true,
     },
-    email:{
+    email: {
         type: String,
         required: true,
         lowercase: true,
@@ -31,14 +31,14 @@ const UserSchema = new Schema({
     hashPassword: {
         type: String,
     },
-    date:{
+    date: {
         type: Date,
         default: Date.now
     },
 })
 
-UserSchema.methods.comparePassword = function(password) {
-    return bcrypt.compareSync(password, this.hash_password);
+UserSchema.methods.comparePassword = function (password) {
+    return bcrypt.compareSync(password, this.hashPassword);
 };
 
 module.exports = mongoose.model('User', UserSchema)

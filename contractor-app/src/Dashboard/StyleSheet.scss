@@ -15,6 +15,7 @@ html, body, nav {
     flex-direction: column;
     height: 100vh;
 
+
     .main-container {
         display: flex;
         width: 100%;
@@ -39,7 +40,7 @@ html, body, nav {
             .tree-view-container {
                 display: flex;
                 flex-direction: column;
-                padding-right: 0.5rem;
+                padding-right: 1rem;
             }
         }
 

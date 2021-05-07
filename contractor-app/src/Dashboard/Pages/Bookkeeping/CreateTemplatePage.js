@@ -188,12 +188,14 @@ function SubmitButton({ createTemplate, templateName, setTemplateName, fields, s
             setTemplateName("");
             setFields([]);
         })
+
+
     }
 
     return (
         fields.length > 0 &&
         <ErrorProofButton
-            className={'big-btn btn-red'}
+            className='big-btn btn-red'
             fields={fields}
             setFields={setFields}
             onClick={() => onSubmit()}>

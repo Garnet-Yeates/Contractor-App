@@ -10,18 +10,10 @@ import StyledTreeItem from './StyledTreeItem';
 import EventIcon from '@material-ui/icons/Event';
 import BillsTreeItem from './Bills/BillsTreeItem';
 
-
+import { setDashboardContent, setExpanded, setSelected } from '../../../Redux/treeView/treeViewReduxActions'
 
 function TreeViewComponent(props) {
-    const { } = props
-
-    let nodeId = 0;
-    const getNodeId = () => {
-        return String(nodeId++);
-    }
-
-    const [expanded, setExpanded] = React.useState([]);
-    const [selected, setSelected] = React.useState([]);
+    const { selected, expanded, setSelected, setExpanded, getNodeId } = props
 
     const handleToggle = (event, nodeIds) => {
         setExpanded(nodeIds);
@@ -37,6 +29,7 @@ function TreeViewComponent(props) {
                 defaultCollapseIcon={<ArrowDropDownIcon />}
                 defaultExpandIcon={<ArrowRightIcon />}
                 expanded={expanded}
+                selected={selected}
                 onNodeToggle={handleToggle}
                 onNodeSelect={handleSelect}
             >
@@ -47,27 +40,21 @@ function TreeViewComponent(props) {
                     color="#a250f5"
                     bgColor="#f3e8fd"
                 />
-                <BillsTreeItem
-                    getNodeId={getNodeId}
-                    setExpanded={setExpanded}
-                    expanded={expanded}
-                />
-                <BookkeepingTreeItem
-                    getNodeId={getNodeId}
-                    setExpanded={setExpanded}
-                    expanded={expanded}
-                />
+                <BillsTreeItem getNodeId={getNodeId} />
+                <BookkeepingTreeItem getNodeId={getNodeId} />
             </TreeView>
         </div >
     )
 }
 
 const mapStateToProps = (state) => ({
-
+    selected: state.treeView.selected,
+    expanded: state.treeView.expanded,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-
-})
+const mapDispatchToProps = {
+    setExpanded,
+    setSelected,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(TreeViewComponent)

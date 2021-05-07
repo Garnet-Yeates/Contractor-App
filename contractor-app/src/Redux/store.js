@@ -3,15 +3,17 @@ import thunk from 'redux-thunk';
 
 import { combineReducers } from 'redux';
 import bookkeepingReducer from './reducers/bookkeepingReducer'
-import treeViewReducer from './reducers/treeViewReducer'
+import treeViewReducer from './treeView/treeViewReducer'
+import authReducer from './auth/authReducer';
 
 const initialState = {};
 
 let middleware = [thunk]
 
-const rootReducer = combineReducers({ 
+const rootReducer = combineReducers({
   treeView: treeViewReducer,
   bookkeeping: bookkeepingReducer,
+  auth: authReducer,
 });
 
 // DEV

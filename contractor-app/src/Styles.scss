@@ -23,6 +23,10 @@
     line-height: 1.5;
 }
 
+html {
+    font-size: 62.5%;
+}
+
 .hbox {
     display: flex;
     flex-direction: row;
@@ -31,6 +35,11 @@
         --input-space: 0.75rem;
         justify-content: space-between;
         margin: 0 calc(var(--input-space)*-1);
+    }
+
+    &.spaced > * {
+        width: 0; // Let flex-grow determine so it's equal
+        margin: 0 var(--input-space);
     }
 }
 
@@ -43,7 +52,13 @@
         justify-content: space-between;
         margin: calc(var(--input-space)*-1) 0;
     }
+
+    &.spaced > * {
+        height: 0; // Let flex-grow determine so it's equal
+        margin: var(--input-space) 0;
+    }
 }   
+
 
 .hbox, .vbox {
 
@@ -75,39 +90,29 @@
         justify-content: space-between;
     }
 
-    .spaced > & {
+    &.spaced > * {
         flex-grow: 1;
-    }
-
-    .spaced.hbox > & {
-        width: 0; // Let flex-grow determine so it's equal
-        margin: 0 var(--input-space);
-    }
-
-    .spaced.vbox > & {
-        height: 0; // Let flex-grow determine so it's equal
-        margin: var(--input-space) 0;
     }
 }
 
 hr {
     border: 0;
-    border-top: 0.1rem solid rgb(230, 230, 230);
+    border-top: 1.5px solid rgb(230, 230, 230);
     margin: 0.75rem 0;
 }
 
 .slate-box {
-    --box-padding: 1.5rem;
+    font-size: 1.8rem;
+    user-select: none;
+    --box-padding: 2rem;
     display: flex;
     flex-direction: column;
-    font-family: "Slate";
+    font-family: "Slate Medium";
     color: rgb(39, 39, 53);  
     background-color: white;
     padding: var(--box-padding);
-    min-width: 450px;
-    max-width: 650px;
     width: 50%;
-    max-height: 80%;
+    overflow: auto;
     border-radius: 1rem;
     box-shadow: 0 0 1.5rem -1rem;
 
@@ -116,12 +121,12 @@ hr {
         margin: 0;
     }
 
-    h1 { font-size: 3rem }
-    h2 { font-size: 2.75rem }
-    h3 { font-size: 2.5rem }
-    h4 { font-size: 2.25rem }
+    h1 { font-size: 6rem }
+    h2 { font-size: 5rem }
+    h3 { font-size: 4rem }
+    h4 { font-size: 3rem }
     h5 { font-size: 2rem }
-    h6 { font-size: 1.75rem }
+    h6 { font-size: 1rem }
 
     .hbox, .vbox {
         color: rgb(57, 57, 63);
@@ -138,17 +143,18 @@ hr {
             margin: 0;
         }
         .extra-info-label {
-            font-family: "Slate";
+            font-family: 'Slate Medium';
             color: rgb(160, 160, 160);
         }
     }
 
-    input {                       
+    input {        
+        font-family: inherit;  
+        font-size: 1.8rem;             
         border: none;
         box-shadow: 0 0 0.1rem inset rgb(144, 144, 144);
         border-radius: 0.2rem;
-        padding: 0.4rem 0.5rem;
-        font-size: 1rem;
+        padding: 0.7rem 1rem;
         width: 100%;
 
         &:focus, &:hover {
@@ -160,20 +166,19 @@ hr {
     }
 
     .error-text {
-        color: rgb(136, 9, 98);
+        color: rgb(204, 0, 95);
         margin-top: 0.25rem;
-        min-height: 1rem;
     }
 
     .btn {
         box-sizing: border-box;
         font-family: "Slate Medium";
-        margin-top: 0.5rem;
-        font-size: 1.1rem;
+        font-size: 1.8rem;
         color: white;
         border: none;
-        background-color: rgb(10, 207, 141);
-        padding: 0.4rem 0.8rem;
+        outline: none;
+        background-color: rgb(9, 173, 118);
+        padding: 0.8rem 1.2rem;
         border-radius: 0.25rem;
         transition: background-color 100ms ease-in-out;
 

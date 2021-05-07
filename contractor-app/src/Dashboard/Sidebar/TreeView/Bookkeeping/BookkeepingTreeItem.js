@@ -1,33 +1,37 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react'
 
 import { connect } from 'react-redux'
 
 import TreeItem from '@material-ui/lab/TreeItem';
 import BookkeepingGroup from './BookkeepingGroup'
 
-import { setPageContent } from '../TreeViewController'
 import StyledTreeItem from '../StyledTreeItem';
 import CreateTemplatePage from '../../../Pages/Bookkeeping/CreateTemplatePage';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import { DashboardContext } from '../../../DashboardPage';
+import { usePrevious, useRefWithMountHandler } from '../../../../Hooks/Hooks';
 
-function usePrevious(value) {
-    const ref = useRef();
-    useEffect(() => {
-        ref.current = value;
-    });
-    return ref.current;
-}
+import { setDashboardContent, setExpanded, setSelected } from '../../../../Redux/treeView/treeViewReduxActions'
 
 function BookkeepingTreeItem(props) {
 
+    const params = useContext(DashboardContext);
     // From parent
-    const { getNodeId, expanded, setExpanded } = props;
+    const { getNodeId } = props;
 
     // From store
-    const { templates, setPageContent } = props;
-
+    const { templates, setDashboardContent, setExpanded, setSelected } = props;
     const prevTemplates = usePrevious(templates);
+
+    useEffect(() => {
+        console.log(params)
+        if (params.action === "createTemplate") {
+            setExpanded(["5"]);
+            setSelected(["6"]);
+            onCreateTemplatePress();
+        }
+    }, []);
 
     useEffect(() => {
         if (prevTemplates && templates.length > prevTemplates.length) {
@@ -35,6 +39,10 @@ function BookkeepingTreeItem(props) {
             setExpanded(["5", String(newestId)]);
         }
     }, [templates])
+
+    function onCreateTemplatePress() {
+        setDashboardContent(<CreateTemplatePage />);
+    }
 
     return (
         <StyledTreeItem
@@ -50,7 +58,7 @@ function BookkeepingTreeItem(props) {
                 labelIcon={NoteAddIcon}
                 color="#3c8039"
                 bgColor="#e6f4ea"
-                onClick={() => setPageContent(<CreateTemplatePage />)}
+                onClick={onCreateTemplatePress}
             />
             {templates.map((template, index) => {
                 return (
@@ -69,8 +77,10 @@ const mapStateToProps = (state) => ({
     templates: state.bookkeeping.templates,
 })
 
-const mapDispatchToProps = dispatch => ({
-    setPageContent: function (page) { dispatch(setPageContent(page)) }
-})
+const mapDispatchToProps = {
+    setDashboardContent,
+    setExpanded,
+    setSelected,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookkeepingTreeItem)

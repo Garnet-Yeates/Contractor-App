@@ -18,8 +18,8 @@ exports.register = async (req, res) => {
         return res.status(500).json({ internalError: 'Internal error querying MongoDB database' })
     if (!isEmpty(errors))
         return res.status(409).json(errors);
-    let newUser = new User( {...req.body, identifier: username });
-    newUser.hash_password = bcrypt.hashSync(password, 10);
+    let newUser = new User({ ...req.body, identifier: username });
+    newUser.hashPassword = bcrypt.hashSync(password, 10);
     newUser.save((err) => {
         if (err)
             return res.status(500).json({ internalError: 'Internal error saving user to MongoDB database' });
@@ -30,10 +30,11 @@ exports.register = async (req, res) => {
 
 exports.login = (req, res) => {
     let { username, password } = req.body;
+    console.log(req.body)
     User.findOne({
         identifier: username
     }, function (err, user) {
-        if (err) 
+        if (err)
             return res.status(500).json({ internalError: "Internal error querying MongoDB database" })
         if (!user)
             return res.status(404).json({ resetField: false, username: "Could not find a user with that username" })
@@ -46,7 +47,7 @@ exports.login = (req, res) => {
             process.env.JWT_KEY,
             { expiresIn: '360000s' }, // 100 hour
             (err, token) => {
-                if (err) 
+                if (err)
                     return res.status(500).json({ internalError: 'Error signing JWT token' });
                 return res.json({
                     msg: 'Login Successful',
@@ -57,3 +58,4 @@ exports.login = (req, res) => {
         return;
     });
 }
+

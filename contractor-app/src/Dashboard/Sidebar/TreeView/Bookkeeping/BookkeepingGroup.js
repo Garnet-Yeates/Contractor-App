@@ -1,11 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-
-import TreeItem from '@material-ui/lab/TreeItem';
-
-import { setPageContent } from '../TreeViewController'
-
 import StyledTreeItem from '../StyledTreeItem';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -14,14 +9,15 @@ import ViewEntriesPage from '../../../Pages/Bookkeeping/ViewEntriesPage';
 import AddEntryPage from '../../../Pages/Bookkeeping/AddEntryPage';
 import DescriptionIcon from '@material-ui/icons/Description';
 
+import { setDashboardContent } from '../../../../Redux/treeView/treeViewReduxActions'
+
 function BookkeepingGroup(props) {
 
     // From parent
     const { getNodeId, template, template: { name } } = props;
 
     // From store
-    const { setPageContent } = props;
-
+    const { setDashboardContent } = props;
 
     return (
         <StyledTreeItem
@@ -37,7 +33,7 @@ function BookkeepingGroup(props) {
                 labelIcon={AddCircleIcon}
                 color="#3c8039"
                 bgColor="#e6f4ea"
-                onClick={() => setPageContent(<AddEntryPage template={template} />)}
+                onClick={() => setDashboardContent(<AddEntryPage template={template} />)}
             />
             <StyledTreeItem
                 nodeId={getNodeId()}
@@ -45,7 +41,7 @@ function BookkeepingGroup(props) {
                 labelIcon={VisibilityIcon}
                 color="#1a73e8"
                 bgColor="#e8f0fe"
-                onClick={() => setPageContent(<ViewEntriesPage></ViewEntriesPage>)}
+                onClick={() => setDashboardContent(<ViewEntriesPage></ViewEntriesPage>)}
             />
             <StyledTreeItem
                 nodeId={getNodeId()}
@@ -53,11 +49,9 @@ function BookkeepingGroup(props) {
                 labelIcon={EditIcon}
                 color="#e3742f"
                 bgColor="#fcefe3"
-                onClick={() => setPageContent(<div>Edit Template</div>)}
+                onClick={() => setDashboardContent(<div>Edit Template</div>)}
             />
         </StyledTreeItem>
-
-
     )
 }
 
@@ -67,7 +61,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    setPageContent,
+    setDashboardContent,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookkeepingGroup)

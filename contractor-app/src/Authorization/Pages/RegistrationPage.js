@@ -2,12 +2,19 @@ import React, { Component, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import '../../Styles.scss'
-import { loginUser, registerUser } from '../Actions/userAuthActions';
 import './StyleSheet.scss'
 
 import { Link } from 'react-router-dom';
+import { EmojiObjectsOutlined, StarTwoTone } from '@material-ui/icons';
+import axios from 'axios';
+
 
 function RegistrationPage(props) {
+
+    const { history } = props;
+
+    // From store
+    const { auth = {} } = props;
 
     const [fullName, setFullName] = useState("");
     const [username, setUsername] = useState("");
@@ -20,26 +27,22 @@ function RegistrationPage(props) {
 
     const [errors, setErrors] = useState({});
 
-    // From store
-    const { auth = {} } = props;
-
     useEffect(() => {
         if (auth.isAuthenticated) {
             console.log("You are already logged in! Congrats!")
-            this.props.history.push('/dashboard');
+            history.push('/dashboard');
         }
     }, [])
 
     const onSubmit = (event) => {
-        // Prevent Default Page Refesh
         event.preventDefault()
-        registerUser({
+        register({
             fullName,
             username,
             email,
             password,
             confirmPassword,
-        }, props.history, setErrors)
+        }, history, setErrors)
     }
 
     return (
@@ -49,13 +52,13 @@ function RegistrationPage(props) {
                     <h2>Create Account</h2>
                     <hr />
                     <div className='hbox spaced'>
-                        <ProfileField
+                        <RegisterField
                             label={"Full Name"}
                             value={fullName}
                             setValue={setFullName}
                             error={errors.fullName}
                         />
-                        <ProfileField
+                        <RegisterField
                             label={"Username"}
                             value={username}
                             setValue={setUsername}
@@ -64,13 +67,13 @@ function RegistrationPage(props) {
                     </div>
                     <hr />
                     <div className='hbox spaced'>
-                        <ProfileField
+                        <RegisterField
                             label={"Email Address"}
                             value={email}
                             setValue={setEmail}
                             error={errors.email}
                         />
-                        <ProfileField
+                        <RegisterField
                             label={"Phone Number"}
                             altLabel="Optional"
                             value={phoneNumber}
@@ -81,14 +84,14 @@ function RegistrationPage(props) {
                     <hr />
                     <div className='vbox'>
                         <div className='hbox spaced'>
-                            <ProfileField
+                            <RegisterField
                                 label={"Password"}
                                 value={password}
                                 setValue={setPassword}
                                 noError
                                 type="password"
                             />
-                            <ProfileField
+                            <RegisterField
                                 label={"Confirm Password"}
                                 value={confirmPassword}
                                 setValue={setConfirmPassword}
@@ -97,16 +100,16 @@ function RegistrationPage(props) {
                             />
                         </div>
                         <div className='hbox spaced'>
-                            <div className='hbox'>
-                                <div className="error-text">{errors.password}</div>
-                            </div>
+                            <div className="error-text">{errors.password}</div>
                         </div>
                     </div>
-
                     <hr />
-                    <div className="hbox space-between align-end">
-                        <Link to='/login'>Already Have an Account?</Link>
-                        <button className="btn" onClick={onSubmit}>Register</button>
+                    <div className='vbox'>
+                        <div className="hbox space-between align-end">
+                            <Link to='/login'>Already Have an Account?</Link>
+                            <button className="btn" onClick={onSubmit}>Register</button>
+                        </div>
+                        <div className="error-text">{errors.internalError}</div>
                     </div>
                 </div>
             </div>
@@ -114,7 +117,7 @@ function RegistrationPage(props) {
     )
 }
 
-function ProfileField(props) {
+function RegisterField(props) {
 
     const { label, altLabel, value, setValue, error, noError, ...other } = props;
 
@@ -131,6 +134,19 @@ function ProfileField(props) {
             }
         </div>
     )
+}
+
+const register = (userData, history, setErrors) => {
+    axios.post('http://localhost:4000/register', userData)
+        .then(() => {
+            history.push('/login');
+        })
+        .catch((err) => {
+            if (!err.response)
+                return setErrors({ internalError: 'No response from server' })
+            console.log(err.response);
+            setErrors(err.response.data);
+        })
 }
 
 const mapStateToProps = storeState => ({

@@ -2,8 +2,8 @@ const mongoose = require('mongoose'),
     jwt = require('jsonwebtoken'),
     bcrypt = require('bcrypt'),
     isEmpty = require('is-empty'),
+    emailValidator = require('email-validator'),
     User = mongoose.model('User');
-
 
 /**
  * Checks to see if the supplied username is taken. If so, this function
@@ -16,20 +16,20 @@ const mongoose = require('mongoose'),
  * @returns true if this username is taken or there was an error querying the database
  */
 
- const getDuplicateFieldNameError = async (fieldName, fieldValue, errorText) => {
+const getDuplicateFieldNameError = async (fieldName, errFieldName, fieldValue, errorText) => {
     return await User.findOne({
         [fieldName]: fieldValue,
     }).exec()
-        .then(user => user && { [fieldName]: errorText })
-        .catch(err => ({ internalError: 'Internal error querying database' }));
+        .then(user => user && { [errFieldName]: errorText })
+        .catch(() => ({ internalError: 'Internal error querying database' }));
 }
 
 const getUsernameTakenError = async (username) => {
-    return await getDuplicateFieldNameError('identifier', username, 'Username taken')
+    return await getDuplicateFieldNameError('identifier', 'username', username, 'Username taken')
 }
 
 const getEmailTakenError = async (email) => {
-    return await getDuplicateFieldNameError('email', email, 'Email taken');
+    return await getDuplicateFieldNameError('email', 'email', email, 'Email taken');
 }
 
 const getUsernameErrors = async (username) => {
@@ -41,6 +41,8 @@ const getUsernameErrors = async (username) => {
 const getEmailErrors = async (email) => {
     if (!email)
         return { email: 'Please enter email' }
+    if (!emailValidator.validate(email))
+        return { email: 'Invalid Email' }
     return await getEmailTakenError(email);
 }
 

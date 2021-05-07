@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { SET_EXPANDED_ITEMS } from '../actions/ActionTypes.js'
-import { SET_CONTENT } from '../actions/ActionTypes.js'
+import { SET_EXPANDED, SET_SELECTED, SET_CONTENT } from './treeViewReduxActions';
 
 function FillerComponent(props) {
     return (
@@ -12,9 +11,9 @@ function FillerComponent(props) {
 
 const initialState = {
     currContent: <FillerComponent />, // storeState.treeView.currPage
-    expandedItems: [], // storeState.treeView.expandedItems
+    selected: [],
+    expanded: [],
 };
-
 
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -22,6 +21,16 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 currContent: action.payload,
+            }
+        case SET_SELECTED:
+            return {
+                ...state,
+                selected: action.payload,
+            }
+        case SET_EXPANDED:
+            return {
+                ...state,
+                expanded: action.payload,
             }
         default:
             return state;
