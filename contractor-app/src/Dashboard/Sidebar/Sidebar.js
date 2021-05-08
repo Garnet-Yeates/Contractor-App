@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux';
 import LogoutButton from './LogoutButton';
 import TreeViewComponent from './TreeView/TreeViewComponent';
 
@@ -17,4 +18,9 @@ function Sidebar(props) {
     )
 }
 
-export default Sidebar;
+const mapStateToProps = (state) => ({
+    selected: state.treeView.selected,
+    expanded: state.treeView.expanded,
+})
+
+export default connect(mapStateToProps)(Sidebar)

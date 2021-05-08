@@ -24,29 +24,19 @@ function AddEntryPage({ template, template: { name, fields } }) {
     }
 
     return (
-        <div className="add-entry-page">
-            <div className="add-entry-form-container">
-                <h3>{`Add Entry to ${name}`}</h3>
+        <div className="add-entry page">
+            <div className="form-container">
+                <h2>{`Add Entry to ${name}`}</h2>
                 {fields.map(field => (
-                    <FieldContainer key={field.name}>
-                        <FieldInput
-                            field={field}
-                            changeEntries={changeEntries}
-                            getEntryValue={getEntryValue}
-                        />
-                    </FieldContainer>
+                    <FieldInput
+                        key={field.name}
+                        field={field}
+                        changeEntries={changeEntries}
+                        getEntryValue={getEntryValue}
+                    />
                 ))}
-                <button className="btn btn-green btn-big">Submit</button>
+                <button className="btn green big">Submit</button>
             </div>
-        </div>
-    )
-}
-
-
-function FieldContainer({ children }) {
-    return (
-        <div className="field-container">
-            {children}
         </div>
     )
 }
@@ -55,11 +45,13 @@ function FieldInput({ field, field: { type, name }, changeEntries, getEntryValue
     switch (type) {
         case "text":
             return (
-                <input className="field-input"
-                    value={getEntryValue(field.name)}
-                    onChange={(e) => changeEntries({ [name]: e.target.value })}
-                    placeholder={field.name}>
-                </input>
+                <div className="field-container">
+                    <input className="field-input"
+                        value={getEntryValue(field.name)}
+                        onChange={(e) => changeEntries({ [name]: e.target.value })}
+                        placeholder={field.name}>
+                    </input>
+                </div>
             )
         default:
             return (<p>Disgraceful</p>)

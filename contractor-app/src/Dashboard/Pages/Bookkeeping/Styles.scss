@@ -1,4 +1,3 @@
-
 li {
     margin: 0px !important;
     padding: 0px !important;
@@ -9,7 +8,8 @@ ul {
     padding: 0;
 }
 
-.create-template-page {
+.page {
+    font-family: "Slate Black";
     width: 100%;
     height: 100%;
     padding: 1rem;
@@ -18,161 +18,101 @@ ul {
     justify-content: center;
     overflow-y: auto;
 
-    .create-template-form-container {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    input,
+    button,
+    select {
+        font-size: inherit;
+        font-family: "Slate Medium";
+    }
+
+    .btn {
+        color: white;
+        border: none;
+        border-radius: 0.25rem;
+        padding: 0.5rem 0.2rem;
+        transition: background-color 200ms ease-in-out;
+        background-color: var(--btn-bg-col, rgb(26, 190, 122));
+
+        &.bot-margin {
+            margin-bottom: 0.8rem;
+        }
+
+        &:hover {
+            background-color: var(--btn-bg-hover-col, rgb(23, 141, 112));
+        }
+
+        &:focus {
+            outline: none;
+            border: none;
+            box-shadow: 0 0 0.2rem 0.4rem var(--btn-shadow-col, rgb(111, 255, 207));
+        }
+
+        &.green {
+            --btn-bg-col: rgb(26, 190, 122);
+            --btn-bg-hover-col: rgb(23, 141, 112);
+            --btn-shadow-col: rgb(111, 255, 207);
+        }
+
+        &.red {
+            --btn-bg-col: rgb(238, 23, 112);
+            --btn-bg-hover-col: rgb(177, 18, 84);
+            --btn-shadow-col: rgb(253, 88, 157);
+        }
+
+        &.blue {
+            --btn-bg-col: rgb(39, 168, 255);
+            --btn-bg-hover-col: rgb(29, 131, 199);
+            --btn-shadow-col: rgb(110, 197, 255);
+        }
+
+        &.big {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.8rem 1rem;
+            width: 75%;
+            transition: background-color 200ms ease-in-out;
+        }
+    }
+
+    .form-container {
+        font-size: 2rem;
         margin-top: auto;
         margin-bottom: auto;
         user-select: none;
-        box-shadow: 0.1rem 0.1rem 0.5rem gray;
-        border-radius: 0.5rem;
+        box-shadow: 0.2rem 0.2rem 1rem gray;
+        border-radius: 1rem;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         flex-direction: column;
-        padding: 2rem 1.5rem 1.5rem 1.5rem;
-        min-width: 25rem;
-        max-width: 27.5rem;
+        padding: 4rem 3rem 3rem 3rem;
+        min-width: 45rem;
+        max-width: 55rem;
         width: 30%;
-
-        h3 {
-            margin: 0;
-            margin-bottom: 1rem;
-        }
-            
-        .template-name-input {
-            text-align: center;
-            border-radius: 0.25rem;
-            font-size: 1rem;
-            border: 0.1rem solid gray;
-            outline: none;
-            padding: 0.65rem 0.5rem;
-            width: 75%;
-            margin-bottom: 1rem;
-        }
-
-        .big-btn {
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-            color: white;
-            border: none;
-            border-radius: 0.25rem;
-            padding: 0.65rem 0.5rem;
-            width: 75%;
-            transition: background-color 200ms ease-in-out;
-        }
-
-        .up-down-btn-container {
-            display: flex;
-            justify-content: space-between;
-
-            button {
-                width: 10%; // Tell both buttons to be very small so flex-grow makes them the same size. Genius.
-                flex-grow: 1;
-            }
-
-            button.margin-right {
-                margin-right: 0.1rem;
-            }
-
-            button.margin-left {
-                margin-left: 0.1rem;
-            }
-        }
-
-        .btn-green {
-            background-color: rgb(26, 190, 122);
-
-            &:hover {
-                background-color: rgb(23, 141, 112);
-
-            }
-
-            &:focus {
-                outline: none;
-                border: none;
-                box-shadow: 0 0 0.0rem 0.1rem rgb(111, 255, 207);;
-            }
-        }
-
-        .btn-red {
-            background-color: rgb(238, 23, 112);
-
-            &:hover {
-                background-color: rgb(177, 18, 84);
-
-            }
-
-            &:focus {
-                outline: none;
-                border: none;
-                box-shadow: 0 0 0.0rem 0.1rem rgb(253, 88, 157);
-            }
-        }
-
-        .btn-blue {
-            background-color: rgb(39, 168, 255);
-
-            &:hover {
-                background-color: rgb(29, 131, 199);
-
-            }
-
-            &:focus {
-                outline: none;
-                border: none;
-                box-shadow: 0 0 0.0rem 0.1rem rgb(110, 197, 255);;
-            }
-        }
 
         ul {
             width: 75%;
         }
 
-        .field-div {
-            box-shadow: 0.1rem 0.1rem 0.5rem gray;
-            border-radius: 0.5rem;
-            padding: 0.5rem 1rem;
-            user-select: none;
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 1.5rem;
-
-            h5 {
-                margin: 0;
-            }
-
-            .input-with-err {
-                margin-bottom: 0.25rem;
-            }
-
-            select, option, input {
-                border-radius: 0.25rem;
-                border: 0.1rem solid gray;
-                outline: none;
-                padding: 0.5rem 0.25rem;
-                width: 100%;
-                margin-bottom: 0.1rem;
-            }    
-
-            button {
-                font-size: 0.95rem;
-                color: white;
-                border: none;
-                border-radius: 0.25rem;
-                padding: 0.5rem 0.2rem;
-                transition: background-color 200ms ease-in-out;
-            }
-
-            button.bot-margin {
-                margin-bottom: 0.25rem;
-            }
-
-        }
-
         .red-text {
             color: rgb(223, 29, 110);
-            margin-top: -0.35rem;
+            margin-top: -0.2rem;
             margin-bottom: -0.25rem;
-            font-size: 0.75rem;
+            font-size: 1.5rem;
         }
 
         .red-text.bigger {
@@ -181,104 +121,109 @@ ul {
     }
 }
 
-.add-entry-page {
+.page.create-template {
+    .template-name-input {
+        text-align: center;
+        border-radius: 0.25rem;
+        font-size: 2.2rem;
+        border: 0.2rem solid gray;
+        outline: none;
+        padding: 0.7rem 0.7rem;
+        width: 75%;
+        margin-bottom: 2rem;
+    }
+
+    .up-down-btn-container {
+        display: flex;
+        justify-content: space-between;
+
+        .btn {
+            width: 10%; // Tell both buttons to be very small so flex-grow makes them the same size. Genius.
+            flex-grow: 1;
+        }
+
+        .margin-right {
+            margin-right: 0.3rem;
+        }
+
+        .margin-left {
+            margin-left: 0.3rem;
+        }
+    }
+
+    .field-div {
+        font-family: "Slate Medium";
+        box-shadow: 0.2rem 0.2rem 1rem gray;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        user-select: none;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+
+        label {
+            font-family: "Slate Bold";
+        }
+
+        input {
+            font-size: 1.8rem;
+        }
+
+        .input-with-err {
+            margin-bottom: 0.8rem;
+        }
+
+        select,
+        option,
+        input {
+            color: rgb(27, 27, 27);
+            border-radius: 0.25rem;
+            border: 0.1rem solid gray;
+            outline: none;
+            padding: 0.6rem 0.5rem;
+            width: 100%;
+            margin-bottom: 0.1rem;
+        }
+    }
+}
+
+.page.add-entry {
+    .form-container {
+        min-width: 55rem;
+        max-width: 70rem;
+        width: 60%;
+    }
+
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    .add-entry-form-container {
-        user-select: none;
+    h3 {
+        margin: 0;
+        margin-bottom: 1rem;
+    }
 
-        box-shadow: 0.1rem 0.1rem 0.5rem gray;
-        border-radius: 0.5rem;
+    .field-container {
+        padding: 0.5rem 0rem;
+        width: 75%;
+        margin-bottom: 1rem;
 
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        flex-direction: column;
-        padding: 2rem 1.5rem 1.5rem 1.5rem;
-        min-width: 30rem;
-        max-width: 40rem;
-        width: 50%;
-
-        h3 {
-            margin: 0;
-            margin-bottom: 1rem;
-        }
-
-        .field-container {
-            padding: 0.5rem 0rem;
-            width: 75%;
-            margin-bottom: 1rem;
-
-            .field-input {
-                text-align: center;
-                border-radius: 0.25rem;
-                font-size: 1rem;
-                border: 0.1rem solid gray;
-                outline: none;
-                padding: 0.65rem 0.5rem;
-                width: 100%;
-            }
-        }
-            
-        .btn {
-            border: none;
+        .field-input {
+            text-align: center;
             border-radius: 0.25rem;
+            font-size: 2rem;
+            box-shadow: 0 0 0rem 0.1rem rgb(51, 51, 51) inset;
+            border: none;
+            outline: none;
             padding: 0.65rem 0.5rem;
-            color: white;
-            font-size: 1.05rem;
-            transition: background-color 200ms ease-in-out;
-            width: 75%;
-        }
+            width: 100%;
 
-
-        .btn-green {
-            background-color: rgb(26, 190, 122);
-
-            &:hover {
-                background-color: rgb(23, 141, 112);
-
-            }
-
+            &:hover,
             &:focus {
-                outline: none;
-                border: none;
-                box-shadow: 0 0 0.0rem 0.1rem rgb(111, 255, 207);;
+                box-shadow: 0 0 0rem 0.3rem rgb(46, 46, 46) inset;
+                transition: 200ms;
             }
         }
-
-        .btn-red {
-            background-color: rgb(238, 23, 112);
-
-            &:hover {
-                background-color: rgb(177, 18, 84);
-
-            }
-
-            &:focus {
-                outline: none;
-                border: none;
-                box-shadow: 0 0 0.0rem 0.1rem rgb(253, 88, 157);
-            }
-        }
-
-        .btn-blue {
-            background-color: rgb(39, 168, 255);
-
-            &:hover {
-                background-color: rgb(29, 131, 199);
-
-            }
-
-            &:focus {
-                outline: none;
-                border: none;
-                box-shadow: 0 0 0.0rem 0.1rem rgb(110, 197, 255);;
-            }
-        }    
     }
 }
-
-

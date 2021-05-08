@@ -69,25 +69,26 @@ function CreateTemplatePage(props) {
     }, [fields])
 
     return (
-        <div className="create-template-page">
-            <div className="create-template-form-container">
-                <h3>{templateName === "" ? ("New Template") : (templateName + " Template")}</h3>
-                <StateMappedInput
+        <div className="create-template page">
+            <div className="form-container">
+                <h1>{templateName === "" ? ("New Template") : (templateName + " Template")}</h1>
+                <Input
                     className="template-name-input"
                     placeholder="Template Name"
                     onKeyPress={({ key }) => key === "Enter" && fields.length === 0 && addField(fields, setFields)}
                     state={templateName}
                     stateSetter={setTemplateName}
+                    maxLength={16}
                 />
 
                 <FieldList fields={fields} setFields={setFields} newestInputRef={newestInputRef} />
 
-                <ErrorProofButton
-                    className="big-btn btn-green"
+                <ErrorCheckButton
+                    className="btn big green"
                     onClick={() => addField(fields, setFields)}
                     fields={fields} setFields={setFields}>
                     Add Field
-                    </ErrorProofButton>
+                </ErrorCheckButton>
 
                 <SubmitButton
                     createTemplate={createTemplate}
@@ -97,10 +98,9 @@ function CreateTemplatePage(props) {
                     setFields={setFields} />
                 <div className="red-text bigger">{props.templateNameError}</div>
             </div>
-        </div>
+        </div >
     )
 }
-
 
 function FieldList({ fields, setFields, newestInputRef }) {
     return (
@@ -115,28 +115,10 @@ function FieldList({ fields, setFields, newestInputRef }) {
                         layout
                         transition={spring}
                     >
-                        <div className="input-with-err">
-                            <h5>Field Name</h5>
-                            <input
-                                placeholder="Enter Field Name"
-                                value={name}
-                                onKeyPress={({ key }) => key === "Enter" && !fieldErrors(fields, setFields) && addField(fields, setFields)}
-                                onChange={({ target: { value } }) => {
-                                    field.name = value;
-                                    setFields([...fields])
-                                }}
-                                ref={index === fields.length - 1 ? newestInputRef : undefined}
-                            />
-                            <div className="red-text">{error}</div>
-                        </div>
-                        <div className="input-with-err">
-                            <h5>Field Type</h5>
-                            <select>
-                                <option>Text</option>
-                            </select>
-                        </div>
+                        <FieldNameInput field={field} index={index} fields={fields} setFields={setFields} newestInputRef={newestInputRef} />
+                        <FieldTypeInput />
                         <UpDownButton index={index} fields={fields} setFields={setFields} />
-                        <button className="btn btn-red" onClick={() => deleteField(index, fields, setFields)}>Delete Field</button>
+                        <button className="btn red bot-margin" onClick={() => deleteField(index, fields, setFields)}>Delete Field</button>
                     </motion.div>
                 )
             })}
@@ -145,12 +127,49 @@ function FieldList({ fields, setFields, newestInputRef }) {
 }
 
 
-function StateMappedInput(props) {
-    const { stateSetter, state, ...rest } = props;
+function FieldNameInput({ field, index, fields, setFields, newestInputRef }) {
+    let { name, type, error, id } = field;
+    return (
+        <div className="input-with-err">
+            <label>Field Name</label>
+            <input
+                placeholder="Enter Field Name"
+                value={name}
+                onKeyPress={({ key }) => key === "Enter" && !fieldErrorCheck(fields, setFields) && addField(fields, setFields)}
+                onChange={({ target: { value } }) => {
+                    if (value.length <= 28) {
+                        field.name = value;
+                        setFields([...fields])
+                    }
+                }}
+                ref={index === fields.length - 1 ? newestInputRef : undefined}
+            />
+            <div className="red-text">{error}</div>
+        </div>
+    )
+}
+
+function FieldTypeInput({ }) {
+    return (
+        <div className="input-with-err">
+            <label>Field Type</label>
+            <select>
+                <option>Text</option>
+            </select>
+        </div>
+    )
+}
+
+/**
+ * State-mapped input component
+ * @param {} param0 
+ * @returns 
+ */
+function Input({ stateSetter, state, maxLength, ...rest }) {
     return (
         <input
             value={state}
-            onChange={({ target: { value } }) => stateSetter(value)}
+            onChange={({ target: { value } }) => (value.length <= maxLength || !maxLength) && stateSetter(value)}
             {...rest}
         />
     )
@@ -159,16 +178,16 @@ function StateMappedInput(props) {
 function UpDownButton({ index, fields, setFields }) {
     const render = () => {
         if (index === 0 && index !== fields.length - 1)
-            return <button className="btn btn-blue bot-margin" onClick={() => moveField(index, 1, fields, setFields)}>Move down</button>
+            return <button className="btn blue bot-margin" onClick={() => moveField(index, 1, fields, setFields)}>Move down</button>
         else if (index !== fields.length - 1)
             return (
                 <>
-                    <button className="btn btn-blue bot-margin margin-right" onClick={() => moveField(index, -1, fields, setFields)}>Move up</button>
-                    <button className="btn btn-blue bot-margin margin-left" onClick={() => moveField(index, 1, fields, setFields,)}>Move down</button>
+                    <button className="btn blue bot-margin margin-right" onClick={() => moveField(index, -1, fields, setFields)}>Move up</button>
+                    <button className="btn blue bot-margin margin-left" onClick={() => moveField(index, 1, fields, setFields,)}>Move down</button>
                 </>
             )
         else if (index !== 0)
-            return <button className="btn btn-blue bot-margin" onClick={() => moveField(index, -1, fields, setFields)}>Move up</button>
+            return <button className="btn blue bot-margin" onClick={() => moveField(index, -1, fields, setFields)}>Move up</button>
     }
 
     return (
@@ -188,24 +207,22 @@ function SubmitButton({ createTemplate, templateName, setTemplateName, fields, s
             setTemplateName("");
             setFields([]);
         })
-
-
     }
 
     return (
         fields.length > 0 &&
-        <ErrorProofButton
-            className='big-btn btn-red'
+        <ErrorCheckButton
+            className='btn big red'
             fields={fields}
             setFields={setFields}
             onClick={() => onSubmit()}>
             Create Template
-        </ErrorProofButton>
+        </ErrorCheckButton>
     )
 }
 
 
-function fieldErrors(fields, setFields) {
+function fieldErrorCheck(fields, setFields) {
     let ret = false;
 
     for (let field of fields) {
@@ -238,18 +255,18 @@ function fieldErrors(fields, setFields) {
 }
 
 
-function ErrorProofButton({ fields, onClick, setFields, className, children }) {
-    const check = () => {
-        if (!fieldErrors(fields, setFields)) {
-            onClick();
-        }
-    }
-    return <button className={className} onClick={() => check()}>
+/**
+ * The provided onClick function will not be run unless fieldErrorCheck(fields) returns false.
+ * fieldErrorCheck() function makes sure there are no duplicate or missing field names and also
+ * displays the errors to the user
+ * @param {} param0 
+ * @returns 
+ */
+function ErrorCheckButton({ fields, onClick, setFields, className, children }) {
+    return <button className={className} onClick={() => !fieldErrorCheck(fields, setFields) && onClick()}>
         {children}
     </button>
 }
-
-
 
 const mapStateToProps = (state) => ({
     templateNameError: state.bookkeeping.errors.templateName,

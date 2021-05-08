@@ -26,8 +26,8 @@ function TreeViewComponent(props) {
     return (
         <div className="tree-view-container">
             <TreeView
-                defaultCollapseIcon={<ArrowDropDownIcon />}
-                defaultExpandIcon={<ArrowRightIcon />}
+                defaultCollapseIcon={<ArrowDropDownIcon className="tree-view-icon" />}
+                defaultExpandIcon={<ArrowRightIcon className="tree-view-icon" />}
                 expanded={expanded}
                 selected={selected}
                 onNodeToggle={handleToggle}
