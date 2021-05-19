@@ -8,10 +8,6 @@ function AddEntryPage({ template, template: { name, fields } }) {
 
     const [entries, setEntries] = useState({});
 
-    useEffect(() => {
-        //  console.log(entries);
-    }, [entries])
-
     const changeEntries = (changeObj) => {
         setEntries({
             ...entries,

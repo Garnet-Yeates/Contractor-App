@@ -1,7 +1,5 @@
-
-
-.registration-page, .login-page {
-
+.registration-page,
+.login-page {
     .slate-box {
         max-width: 99%;
         max-height: 99%;
@@ -14,13 +12,14 @@
             margin: 1rem 0rem;
         }
 
-        .hbox, .vbox {
+        .hbox,
+        .vbox {
             color: rgb(170, 170, 170);
         }
-        
+
         a {
             color: rgb(0, 122, 204);
-            
+
             &:visited {
                 color: rgb(187, 0, 204);
             }
@@ -28,22 +27,22 @@
 
         .error-text {
             color: rgb(204, 0, 95);
-
         }
 
-        input {               
-            color: rgb(211, 198, 182);        
+        input {
+            color: rgb(211, 198, 182);
             background-color: rgba(7, 10, 22, 0.6);
             box-shadow: 0 0 0.1rem inset rgba(24, 28, 53, 0.589);
 
-            &:focus, &:hover {
+            &:focus,
+            &:hover {
                 box-shadow: 0 0 0.05rem 0.15rem inset rgb(30, 163, 187);
             }
         }
 
         .btn {
             min-width: 10rem;
-            background-color: rgba(52, 40, 112, 0.35);
+            background-color: rgba(52, 40, 112, 0.5);
 
             &:enabled {
                 &:hover {
@@ -58,8 +57,7 @@
             &:disabled {
                 background-color: rgb(82, 82, 82);
             }
-    }
-
+        }
 
         .double-label-container {
             display: flex;
@@ -86,7 +84,6 @@
 }
 
 .login-page {
-    
     .full-screen-container {
         background-image: url(https://upload.wikimedia.org/wikipedia/commons/6/69/7-78049_small-memory-8k-wallpaper-forest-minimalist-wallpaper-4k.jpg);
         vertical-align: top;
@@ -99,4 +96,3 @@
         align-items: center;
     }
 }
-

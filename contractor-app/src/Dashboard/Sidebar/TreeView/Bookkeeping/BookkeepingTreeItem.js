@@ -25,7 +25,6 @@ function BookkeepingTreeItem(props) {
     const prevTemplates = usePrevious(templates);
 
     useEffect(() => {
-        console.log(params)
         if (params.action === "createTemplate") {
             setExpanded(["5"]);
             setSelected(["6"]);
@@ -36,7 +35,6 @@ function BookkeepingTreeItem(props) {
     useEffect(() => {
         if (prevTemplates && templates.length > prevTemplates.length) {
             let newestId = 7 + (templates.length - 1) * 4
-            console.log("newest", newestId)
             setExpanded(["5", String(newestId)]);
         }
     }, [templates])

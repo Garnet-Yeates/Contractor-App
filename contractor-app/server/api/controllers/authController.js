@@ -6,8 +6,10 @@ const mongoose = require('mongoose'),
     User = mongoose.model('User'),
     { getEmailErrors, getFullNameErrors, getPasswordErrors, getUsernameErrors } = require('../util/registerErrorHandlers');
 
+
 exports.register = async (req, res) => {
     const { fullName, username, email, password, confirmPassword } = req.body;
+
     const errors = {
         ...await getUsernameErrors(username),
         ...await getEmailErrors(email),
@@ -29,15 +31,14 @@ exports.register = async (req, res) => {
 }
 
 exports.login = (req, res) => {
-    let { username, password } = req.body;
-    console.log(req.body)
+    let { username, password } = req.body
     User.findOne({
         identifier: username
     }, function (err, user) {
         if (err)
             return res.status(500).json({ internalError: "Internal error querying MongoDB database" })
         if (!user)
-            return res.status(404).json({ resetField: false, username: "Could not find a user with that username" })
+            return res.status(404).json({ resetField: false, username: "User not found" })
         if (!user.comparePassword(password))
             return res.status(401).json({ resetField: true, password: 'Authentication failed' });
 
@@ -52,10 +53,10 @@ exports.login = (req, res) => {
                 return res.json({
                     msg: 'Login Successful',
                     token: 'Bearer ' + token
-                });
+                })
             }
         );
-        return;
-    });
+        return
+    })
 }
 

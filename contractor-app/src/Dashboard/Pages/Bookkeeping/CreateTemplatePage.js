@@ -72,13 +72,11 @@ function CreateTemplatePage(props) {
         <div className="create-template page">
             <div className="form-container">
                 <h1>{templateName === "" ? ("New Template") : (templateName + " Template")}</h1>
-                <Input
-                    className="template-name-input"
-                    placeholder="Template Name"
-                    onKeyPress={({ key }) => key === "Enter" && fields.length === 0 && addField(fields, setFields)}
-                    state={templateName}
-                    stateSetter={setTemplateName}
-                    maxLength={16}
+                <TemplateNameInput
+                    templateName={templateName}
+                    setTemplateName={setTemplateName}
+                    fields={fields}
+                    setFields={setFields}
                 />
 
                 <FieldList fields={fields} setFields={setFields} newestInputRef={newestInputRef} />
@@ -99,6 +97,31 @@ function CreateTemplatePage(props) {
                 <div className="red-text bigger">{props.templateNameError}</div>
             </div>
         </div >
+    )
+}
+
+function TemplateNameInput({ templateName, setTemplateName, fields, setFields }) {
+    return (
+        <input
+            className="template-name-input"
+            placeholder="Template Name"
+            value={templateName}
+            onChange={({ target: { value } }) => {
+                if (value.length < 16) {
+                    let words = value.split(' ');
+                    words.forEach((word, index) => {
+                        if (word) {
+                            let wordArr = [...word.toLowerCase()];
+                            wordArr[0] = wordArr[0].toUpperCase();
+                            words[index] = wordArr.join('');
+                        }
+                    })
+                    words = words.join(' ');
+                    setTemplateName(words);
+                }
+            }}
+            onKeyPress={({ key }) => (key === "Enter" && fields.length === 0) && addField(fields, setFields)}
+        />
     )
 }
 
@@ -160,21 +183,6 @@ function FieldTypeInput({ }) {
     )
 }
 
-/**
- * State-mapped input component
- * @param {} param0 
- * @returns 
- */
-function Input({ stateSetter, state, maxLength, ...rest }) {
-    return (
-        <input
-            value={state}
-            onChange={({ target: { value } }) => (value.length <= maxLength || !maxLength) && stateSetter(value)}
-            {...rest}
-        />
-    )
-}
-
 function UpDownButton({ index, fields, setFields }) {
     const render = () => {
         if (index === 0 && index !== fields.length - 1)
@@ -221,7 +229,6 @@ function SubmitButton({ createTemplate, templateName, setTemplateName, fields, s
     )
 }
 
-
 function fieldErrorCheck(fields, setFields) {
     let ret = false;
 
@@ -230,7 +237,6 @@ function fieldErrorCheck(fields, setFields) {
         if (field.name === "") {
             field.error = "Please Enter Field Name"
             ret = true;
-            continue;
         }
     }
 

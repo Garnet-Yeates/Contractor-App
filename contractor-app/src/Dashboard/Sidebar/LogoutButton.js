@@ -26,7 +26,7 @@ function LogoutButton(props) {
                 labelIcon={ExitToAppIcon}
                 color="#a250f5"
                 bgColor="#f3e8fd"
-                onClick={() => { console.log("fuck"); logoutUser(history) }}
+                onClick={() => logoutUser(history)}
             />
         </TreeView>
     )

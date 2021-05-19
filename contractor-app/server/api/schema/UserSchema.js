@@ -1,9 +1,8 @@
-// Sign up schema - what to collect from user
 const mongoose = require('mongoose'),
-    bcrypt = require('bcrypt');
-Schema = mongoose.Schema;
+    bcrypt = require('bcrypt'),
+    Schema = mongoose.Schema,
+    TemplateSchema = require('../schema/TemplateSchema');
 
-//Defines mongoose schema for user accounts
 const UserSchema = new Schema({
     fullName: {
         type: String,
@@ -35,10 +34,12 @@ const UserSchema = new Schema({
         type: Date,
         default: Date.now
     },
-})
+    templates: [TemplateSchema],
+    templateEntries: {},
+}, { strict: false })
 
 UserSchema.methods.comparePassword = function (password) {
     return bcrypt.compareSync(password, this.hashPassword);
 };
 
-module.exports = mongoose.model('User', UserSchema)
+module.exports = UserSchema;

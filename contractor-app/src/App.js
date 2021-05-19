@@ -16,7 +16,6 @@ import { useEffect } from 'react';
 import { loginUser } from './Redux/auth/authReduxActions';
 import AuthRoute from './Authorization/AuthRoute';
 
-console.log('Loading App.js ')
 // Check if user is logged in
 const token = localStorage.jwtToken;
 if (token)

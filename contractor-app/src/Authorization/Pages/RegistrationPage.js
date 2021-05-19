@@ -5,15 +5,11 @@ import '../../Styles.scss'
 import './StyleSheet.scss'
 
 import { Link } from 'react-router-dom';
-import { EmojiObjectsOutlined, StarTwoTone } from '@material-ui/icons';
 import axios from 'axios';
 
-
 function RegistrationPage(props) {
-
     const { history } = props;
 
-    // From store
     const { auth = {} } = props;
 
     const [fullName, setFullName] = useState("");
@@ -149,8 +145,8 @@ const register = (userData, history, setErrors) => {
         })
 }
 
-const mapStateToProps = storeState => ({
-    auth: storeState.auth,
+const mapStateToProps = state => ({
+    auth: state.auth,
 });
 
 export default connect(mapStateToProps)(RegistrationPage);
